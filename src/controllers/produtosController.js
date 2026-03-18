@@ -39,6 +39,25 @@ const criar = (req, res) => {
 };
 
 const atualizar = (req, res) => {
+    const index = produtos.findIndex(p => p.id === Number(req.params.id));
+    if (index === -1) {
+        return res.status(404).json({ erro: "Produto não encontrado" });
+    }
+
+    const { nome, descricao, preco, categoria, estoque, ativo } = req.body;
+    
+    produtos[index] = {
+        ...produtos[index],
+        nome: nome || produtos[index].nome,
+        descricao: descricao || produtos[index].descricao,
+        preco: preco !== undefined ? preco : produtos[index].preco,
+        categoria: categoria || produtos[index].categoria,
+        estoque: estoque !== undefined ? estoque : produtos[index].estoque,
+        ativo: ativo !== undefined ? ativo : produtos[index].ativo,
+        atualizado_em: new Date().toISOString()
+    };
+
+    res.status(200).json(produtos[index]);
 };
 
 const remover = (req, res) => {
