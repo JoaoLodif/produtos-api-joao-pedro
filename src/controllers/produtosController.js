@@ -2,6 +2,7 @@ let produtos = [];
 let nextId = 1;
 
 const listar = (req, res) => {
+    res.status(200).json(produtos);
 };
 
 const buscarPorId = (req, res) => {
