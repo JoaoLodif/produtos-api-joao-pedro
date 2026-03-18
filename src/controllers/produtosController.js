@@ -61,6 +61,13 @@ const atualizar = (req, res) => {
 };
 
 const remover = (req, res) => {
+    const index = produtos.findIndex(p => p.id === Number(req.params.id));
+    if (index === -1) {
+        return res.status(404).json({ erro: "Produto não encontrado" });
+    }
+
+    produtos.splice(index, 1);
+    res.status(204).send();
 };
 
 module.exports = {
